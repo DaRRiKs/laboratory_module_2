@@ -3,42 +3,66 @@
 //Произведите корректную (правильную) по вашему мнению реализацию с применением принципа DRY:
 
 //Использование методов для устранения дублирования кода
+
+//public class OrderService
+//{
+//    public void CreateOrder(string productName, int quantity, double price)
+//    {
+//        double totalPrice = quantity * price;
+//        Console.WriteLine($"Order for {productName} created. Total: {totalPrice}");
+//    }
+//    public void UpdateOrder(string productName, int quantity, double price)
+//    {
+//        double totalPrice = quantity * price;
+//        Console.WriteLine($"Order for {productName} updated. New total: {totalPrice}");
+//    }
+//}
 public class OrderService
 {
+    static double PrintOrderOperations(int quantity, double price)
+    {
+        return quantity * price;
+    }
     public void CreateOrder(string productName, int quantity, double price)
     {
-        double totalPrice = quantity * price;
-        Console.WriteLine($"Order for {productName} created. Total: {totalPrice}");
+        Console.WriteLine($"Order for {productName} created. Total: {PrintOrderOperations(quantity, price)}");
     }
     public void UpdateOrder(string productName, int quantity, double price)
     {
-        double totalPrice = quantity * price;
-        Console.WriteLine($"Order for {productName} updated. New total: {totalPrice}");
+        Console.WriteLine($"Order for {productName} updated. New total: {PrintOrderOperations(quantity, price)}");
     }
 }
 
 //Использование общих базовых классов
-public class Car
-{
-    public void Start()
-    {
-        Console.WriteLine("Car is starting");
-    }
-    public void Stop()
-    {
-        Console.WriteLine("Car is stopping");
-    }
-}
 
-public class Truck
+//public class Car
+//{
+//    public void Start()
+//    {
+//        Console.WriteLine("Car is starting");
+//    }
+//    public void Stop()
+//    {
+//        Console.WriteLine("Car is stopping");
+//    }
+//}
+
+//public class Truck
+//{
+//    public void Start()
+//    {
+//        Console.WriteLine("Truck is starting");
+//    }
+//    public void Stop()
+//    {
+//        Console.WriteLine("Truck is stopping");
+//    }
+//}
+public class Transport
 {
-    public void Start()
+    static void TransportOperations(string transport, string action)
     {
-        Console.WriteLine("Truck is starting");
-    }
-    public void Stop()
-    {
-        Console.WriteLine("Truck is stopping");
+        Console.WriteLine($"{transport} is " + (action == "start" ? "starting" : action == "stop" ? "stopping" : "doing nothing"));
     }
 }
 
@@ -46,33 +70,42 @@ public class Truck
 //Произведите корректную (правильную) по вашему мнению реализацию с применением принципа KISS:
 
 //Избегание чрезмерного использования абстракций
-public interface IOperation
-{
-    void Execute();
-}
+//public interface IOperation
+//{
+//    void Execute();
+//}
 
-public class AdditionOperation : IOperation
-{
-    private int _a;
-    private int _b;
+//public class AdditionOperation : IOperation
+//{
+//    private int _a;
+//    private int _b;
 
-    public AdditionOperation(int a, int b)
-    {
-        _a = a;
-        _b = b;
-    }
+//    public AdditionOperation(int a, int b)
+//    {
+//        _a = a;
+//        _b = b;
+//    }
 
-    public void Execute()
-    {
-        Console.WriteLine(_a + _b);
-    }
-}
+//    public void Execute()
+//    {
+//        Console.WriteLine(_a + _b);
+//    }
+//}
+
+//public class Calculator
+//{
+//    public void PerformOperation(IOperation operation)
+//    {
+//        operation.Execute();
+//    }
+//}
+
 
 public class Calculator
 {
-    public void PerformOperation(IOperation operation)
+    public void PerformOperation(int a, int b)
     {
-        operation.Execute();
+        Console.WriteLine(a + b);
     }
 }
 
