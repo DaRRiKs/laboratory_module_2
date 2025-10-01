@@ -19,17 +19,18 @@
 //}
 public class OrderService
 {
-    static double PrintOrderOperations(int quantity, double price)
-    {
-        return quantity * price;
-    }
     public void CreateOrder(string productName, int quantity, double price)
     {
-        Console.WriteLine($"Order for {productName} created. Total: {PrintOrderOperations(quantity, price)}");
+        HandleOrder("created", productName, quantity, price);
     }
     public void UpdateOrder(string productName, int quantity, double price)
     {
-        Console.WriteLine($"Order for {productName} updated. New total: {PrintOrderOperations(quantity, price)}");
+        HandleOrder("updated", productName, quantity, price);
+    }
+    private void HandleOrder(string action, string productName, int quantity, double price)
+    {
+        double totalPrice = quantity * price;
+        Console.WriteLine($"Order for {productName} {action}. Total: {totalPrice}");
     }
 }
 
@@ -58,14 +59,23 @@ public class OrderService
 //        Console.WriteLine("Truck is stopping");
 //    }
 //}
-public class Transport
+public class Vehicle
 {
-    static void TransportOperations(string transport, string action)
+    public void Start()
     {
-        Console.WriteLine($"{transport} is " + (action == "start" ? "starting" : action == "stop" ? "stopping" : "doing nothing"));
+        Console.WriteLine($"{GetType().Name} is starting");
+    }
+    public void Stop()
+    {
+        Console.WriteLine($"{GetType().Name} is stopping");
     }
 }
-
+public class Car : Vehicle
+{
+}
+public class Truck : Vehicle
+{
+}
 
 //Произведите корректную (правильную) по вашему мнению реализацию с применением принципа KISS:
 
@@ -103,14 +113,14 @@ public class Transport
 
 public class Calculator
 {
-    public void PerformOperation(int a, int b)
+    public void Add(int a, int b)
     {
         Console.WriteLine(a + b);
     }
 }
 
 //Избегание избыточного использования шаблонов проектирования
-public class Singleton
+/* public class Singleton
 {
     private static Singleton _instance;
 
@@ -140,13 +150,30 @@ public class Client
     {
         Singleton.Instance.DoSomething();
     }
+} */
+
+public class Service
+{
+    public void DoSomething()
+    {
+        Console.WriteLine("Doing something...");
+    }
+}
+
+public class Client
+{
+    public void Execute()
+    {
+        var service = new Service();
+        service.DoSomething();
+    }
 }
 
 
 //Произведите корректную (правильную) по вашему мнению реализацию с применением принципа YAGNI:
 
 //Избыточное создание абстракций
-public interface IShape
+/* public interface IShape
 {
     double CalculateArea();
 }
@@ -179,10 +206,37 @@ public class Square : IShape
     {
         return _side * _side;
     }
+} */
+
+public class Circle
+{
+    private double _radius;
+    public Circle(double radius)
+    {
+        _radius = radius;
+    }
+    public double CalculateArea()
+    {
+        return Math.PI * _radius * _radius;
+    }
 }
 
+public class Square
+{
+    private double _side;
+    public Square(double side)
+    {
+        _side = side;
+    }
+    public double CalculateArea()
+    {
+        return _side * _side;
+    }
+}
+
+
 //Излишняя параметризация методов
-public class MathOperations
+/* public class MathOperations
 {
     public int Add(int a, int b, bool shouldLog = false)
     {
@@ -192,5 +246,13 @@ public class MathOperations
             Console.WriteLine($"Result: {result}");
         }
         return result;
+    }
+} */
+
+public class MathOperations
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
     }
 }
